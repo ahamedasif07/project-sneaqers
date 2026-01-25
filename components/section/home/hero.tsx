@@ -1,6 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 import Container from "@/components/ui/container";
-import { ArrowRight, Search, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import heroBg from "../../../public/assets/images/hero-bg.jpg";
+import Image from "next/image";
 
 export default function Hero() {
   const agents = [
@@ -19,7 +21,7 @@ export default function Hero() {
             backgroundImage: `url(${heroBg})`,
             backgroundPosition: "center",
           }}
-          className="relative min-h-[650px] md:h-[1050px] w-full rounded-[30px] md:rounded-[40px] rounded-br-none! overflow-hidden bg-gray-900 flex items-center "
+          className="relative min-h-162.5 md:h-262.5 w-full rounded-[30px] md:rounded-[40px] rounded-br-none! overflow-hidden bg-gray-900 flex items-center "
         >
           {/* Background Image */}
           <div
@@ -41,7 +43,7 @@ export default function Hero() {
             </h1>
             <p className="text-sm md:text-base opacity-90 mb-8 md:mb-10  leading-relaxed">
               It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+              the readable content of a <br /> page when looking at its layout.
             </p>
 
             {/* Custom Search Bar - Made flex-col on very small screens */}
@@ -65,22 +67,24 @@ export default function Hero() {
           <div className="absolute bottom-0 right-0 z-20 scale-75 origin-bottom-right sm:scale-100">
             <div className="relative bg-white pt-4 pb-6 pl-8 pr-10 md:pt-6 md:pb-8 md:pl-10 md:pr-12 rounded-tl-[30px] md:rounded-tl-[40px] flex items-center gap-4 md:gap-6 shadow-sm">
               {/* Top-Right Smooth Curve */}
-              <div className="absolute -top-[44px] -right-0.5 w-[48px] h-[45px] bg-transparent rounded-br-[40px] shadow-[16px_15px_0_0_white] pointer-events-none" />
+              <div className="absolute -top-11 -right-0.5 w-12 h-11.25 bg-transparent rounded-br-[40px] shadow-[16px_15px_0_0_white] pointer-events-none" />
 
               {/* Bottom-Left Smooth Curve */}
-              <div className="absolute -bottom-0.5 -left-[38px] w-[40px] h-[46px] bg-transparent rounded-br-[40px] shadow-[15px_15px_0_0_white] pointer-events-none" />
+              <div className="absolute -bottom-0.5 -left-9.5 w-10 h-11.5 bg-transparent rounded-br-[40px] shadow-[15px_15px_0_0_white] pointer-events-none" />
 
               {/* Avatar Stack */}
               <div className="flex -space-x-3 md:-space-x-4">
                 {agents.map((src, i) => (
                   <div
                     key={i}
-                    className="w-12 h-12 md:w-16 md:h-16 rounded-full border-[3px] md:border-[4px] border-white overflow-hidden shadow-sm"
+                    className="relative w-12 h-12 md:w-16 md:h-16 rounded-full border-[3px] md:border-4 border-white overflow-hidden shadow-sm"
                   >
-                    <img
+                    <Image
                       src={src}
-                      alt="agent"
-                      className="w-full h-full object-cover"
+                      alt={`Agent ${i + 1}`}
+                      fill // Fills the parent div
+                      className="object-cover"
+                      sizes="(max-width: 768px) 48px, 64px" // Helps Next.js serve the right size
                     />
                   </div>
                 ))}
