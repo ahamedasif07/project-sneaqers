@@ -1,4 +1,5 @@
 import BestSell from "@/components/section/home/bestSell";
+import BlogGrid from "@/components/section/home/blogGrid";
 import BrandShowcase from "@/components/section/home/brandShowcase";
 import Hero from "@/components/section/home/hero";
 import ProductSection from "@/components/section/home/productSection";
@@ -14,6 +15,7 @@ const Home = () => {
       <BrandShowcase />
       <BestSell />
       <ProductSection />
+      <BlogGrid />
     </div>
   );
 };
