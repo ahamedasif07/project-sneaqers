@@ -1,5 +1,8 @@
+import BestSell from "@/components/section/home/bestSell";
 import BrandShowcase from "@/components/section/home/brandShowcase";
 import Hero from "@/components/section/home/hero";
+import ProductSection from "@/components/section/home/productSection";
+
 import Releasekalender from "@/components/section/home/releasekalender";
 import React from "react";
 
@@ -9,6 +12,8 @@ const Home = () => {
       <Hero />
       <Releasekalender />
       <BrandShowcase />
+      <BestSell />
+      <ProductSection />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import ProductCard from "@/components/layout/productCard";
 import Container from "@/components/ui/container";
+import SectionHeader from "@/components/ui/sectionHeader";
 
 import { ChevronRight } from "lucide-react";
 
@@ -47,17 +48,8 @@ export default function Releasekalender() {
     <section className="py-12 md:py-14 lg:py-18 bg-white">
       <Container>
         {/* Header Section */}
-        <div className="flex items-center justify-between mb-8 border border-gray-300 rounded-3xl px-8 py-5">
-          <h2 className="text-2xl font-bold text-gray-900">Releasekalender</h2>
-          <button className="flex items-center gap-2 group">
-            <span className="text-sm font-bold underline text-gray-900 group-hover:underline underline-offset-4">
-              Discover more
-            </span>
-            <div className="bg-[#f58220] p-1.5 rounded-full">
-              <ChevronRight className="w-4 h-4 text-white" strokeWidth={3} />
-            </div>
-          </button>
-        </div>
+
+        <SectionHeader title="Releasekalender" dric="Discover more" />
 
         {/* Responsive Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
