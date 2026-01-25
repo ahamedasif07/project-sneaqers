@@ -17,7 +17,7 @@ export default function NavBar() {
   ];
 
   return (
-    <div className="relative bg-white border-b border-gray-100">
+    <div className="relative bg-white  border-gray-100">
       <Container>
         <nav className="flex items-center justify-between p-4 md:p-4.5">
           {/* Logo */}

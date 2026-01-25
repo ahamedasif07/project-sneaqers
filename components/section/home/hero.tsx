@@ -1,5 +1,6 @@
 import Container from "@/components/ui/container";
-import { Search, Star } from "lucide-react";
+import { ArrowRight, Search, Star } from "lucide-react";
+import heroBg from "../../../public/assets/images/hero-bg.jpg";
 
 export default function Hero() {
   const agents = [
@@ -11,14 +12,20 @@ export default function Hero() {
 
   return (
     <Container>
-      <section className="py-4 md:py-6">
+      <section className="">
         {/* Changed h-[800px] to min-h-[600px] and md:h-[800px] for responsiveness */}
-        <div className="relative min-h-[650px] md:h-[800px] w-full rounded-[30px] md:rounded-[40px] rounded-br-none! overflow-hidden bg-gray-900 flex items-center">
+        <div
+          style={{
+            backgroundImage: `url(${heroBg})`,
+            backgroundPosition: "center",
+          }}
+          className="relative min-h-[650px] md:h-[1050px] w-full rounded-[30px] md:rounded-[40px] rounded-br-none! overflow-hidden bg-gray-900 flex items-center "
+        >
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center z-0"
             style={{
-              backgroundImage: "url('/hero-shoes.jpg')",
+              backgroundImage: `url('/assets/images/hero-bg.jpg')`,
               backgroundPosition: "center",
             }}
           />
@@ -26,13 +33,13 @@ export default function Hero() {
           <div className="absolute inset-0 bg-black/20 md:bg-transparent z-1" />
 
           {/* Content Overlay */}
-          <div className="relative z-10 px-6 ml-0 md:ml-16 max-w-xl text-white">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.1] mb-4 md:mb-6 tracking-tight">
+          <div className="relative z-10 px-6 ml-0 md:ml-16  text-white">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] mb-4 md:mb-6 tracking-tight">
               FLAT UP TO 50% OFF
               <br />
               FOR MEN'S
             </h1>
-            <p className="text-sm md:text-base opacity-90 mb-8 md:mb-10 max-w-md leading-relaxed">
+            <p className="text-sm md:text-base opacity-90 mb-8 md:mb-10  leading-relaxed">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout.
             </p>
@@ -42,11 +49,11 @@ export default function Hero() {
               <input
                 type="text"
                 placeholder="Zoek op merk, model..."
-                className="w-full flex-grow px-4 md:px-6 py-3 text-black outline-none text-sm bg-transparent"
+                className="w-full flex-grow px-4 md:px-6 py-1 text-black outline-none text-sm bg-transparent"
               />
-              <button className="w-full sm:w-auto bg-[#1a1a1a] text-white px-6 md:px-8 py-3 md:py-3.5 rounded-2xl md:rounded-full flex items-center justify-center gap-3 hover:bg-black transition-all">
-                <span className="bg-[#f58220] p-1.5 rounded-full hidden sm:block">
-                  <Search className="w-4 h-4 text-white" strokeWidth={3} />
+              <button className="w-full sm:w-auto bg-[#1a1a1a] text-white pl-2 md:pl-3 pr-6 md:pr-8 py-2 md:py-2 rounded-2xl md:rounded-full flex items-center justify-center gap-3 hover:bg-black transition-all">
+                <span className="bg-[#f58220] p-2 rounded-full hidden sm:block">
+                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={3} />
                 </span>
                 <span className="text-sm font-semibold">Zoeken</span>
               </button>
@@ -68,7 +75,7 @@ export default function Hero() {
                 {agents.map((src, i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 md:w-14 md:h-14 rounded-full border-[3px] md:border-[4px] border-white overflow-hidden shadow-sm"
+                    className="w-12 h-12 md:w-16 md:h-16 rounded-full border-[3px] md:border-[4px] border-white overflow-hidden shadow-sm"
                   >
                     <img
                       src={src}
