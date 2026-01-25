@@ -18,42 +18,47 @@ export default function BrandShowcase() {
           </h2>
         </div>
 
-        {/* Responsive Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px] md:auto-rows-[350px]">
-          {/* Top Left: Large Image - Spans 8 columns */}
-          <div className="md:col-span-8 relative rounded-[32px] overflow-hidden group">
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Top Left: Image Card */}
+          <div className="md:col-span-8 h-[500px]  hidden md:block relative rounded-[32px] overflow-hidden group">
             <Image
-              src={brandBannerImagOne} // Replace with your image
+              src={brandBannerImagTwo}
               alt="Classic Nike"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
             />
           </div>
 
-          {/* Top Right: Dark Text Card - Spans 4 columns */}
-          <div className="md:col-span-4">
+          {/* Top Right: Dark Card -> White Button */}
+          <div className="md:col-span-4 h-[500px]">
             <BentoTextCard
-              dark
+              className="bg-[#1A1A1A]"
+              textColor="text-white"
+              btnClassName="bg-white text-black hover:bg-gray-100"
               title="2025 Nike The Best Classical"
-              description="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form."
+              description="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration."
             />
           </div>
 
-          {/* Bottom Left: Light Text Card - Spans 3 columns */}
-          <div className="md:col-span-3">
+          {/* Bottom Left: Light Card -> Black Button */}
+          <div className="md:col-span-4 h-[500px]">
             <BentoTextCard
+              className="bg-[#E8E8E8]"
+              textColor="text-black"
+              btnClassName="bg-black text-white hover:bg-[#333]"
               title="Elegance in Every Movement"
               description="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration."
             />
           </div>
 
-          {/* Bottom Right: Wide Image - Spans 9 columns */}
-          <div className="md:col-span-9 relative rounded-[32px] overflow-hidden group">
+          {/* Bottom Right: Image Card */}
+          <div className="md:col-span-8 h-[500px]  hidden md:block relative rounded-[32px] overflow-hidden group">
             <Image
-              src={brandBannerImagTwo} // Replace with your image
+              src={brandBannerImagOne}
               alt="Nike Elegance"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         </div>
