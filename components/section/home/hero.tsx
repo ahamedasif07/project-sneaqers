@@ -46,18 +46,27 @@ export default function Hero() {
               the readable content of a <br /> page when looking at its layout.
             </p>
 
-            {/* Custom Search Bar - Made flex-col on very small screens */}
-            <div className="bg-white rounded-3xl md:rounded-full p-1.5 md:p-2 flex flex-col sm:flex-row items-center max-w-lg shadow-2xl gap-2">
+            {/* Custom Search Bar */}
+            <div className="bg-white rounded-full p-1.5 md:p-2 flex items-center w-full max-w-lg shadow-2xl gap-2">
               <input
                 type="text"
                 placeholder="Zoek op merk, model..."
-                className="w-full flex-grow px-4 md:px-6 py-1 text-black outline-none text-sm bg-transparent"
+                className="w-full flex-grow px-4 md:px-6 py-1 text-black outline-none text-sm bg-transparent min-w-0"
               />
-              <button className="w-full sm:w-auto bg-[#1a1a1a] text-white pl-2 md:pl-3 pr-6 md:pr-8 py-2 md:py-2 rounded-2xl md:rounded-full flex items-center justify-center gap-3 hover:bg-black transition-all">
-                <span className="bg-[#f58220] p-2 rounded-full hidden sm:block">
-                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={3} />
+
+              <button className="flex-shrink-0 bg-[#1a1a1a] text-white p-1 md:pl-3 md:pr-8 md:py-2 rounded-full flex items-center justify-center gap-3 hover:bg-black transition-all">
+                {/* The Icon container - always visible */}
+                <span className="bg-[#f58220] p-2 rounded-full flex items-center justify-center">
+                  <ArrowRight
+                    className="w-5 h-5 md:w-6 md:h-6 text-white"
+                    strokeWidth={3}
+                  />
                 </span>
-                <span className="text-sm font-semibold">Zoeken</span>
+
+                {/* The Text - hidden on mobile, visible from md: up */}
+                <span className="text-sm font-semibold hidden md:block">
+                  Zoeken
+                </span>
               </button>
             </div>
           </div>
