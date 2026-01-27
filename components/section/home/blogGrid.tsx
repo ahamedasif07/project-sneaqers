@@ -97,7 +97,7 @@ const BlogGrid = () => {
           </article>
 
           {/* Right Side: Scrollable Sidebar */}
-          <div className="flex flex-col h-[600px]">
+          <div className="flex flex-col h-150">
             <div className="flex-1 overflow-y-auto pr-4 space-y-8 scroll-smooth snap-y snap-mandatory scrollbar-thin scrollbar-thumb-gray-200">
               {BLOG_POSTS.map((post, index) => (
                 <React.Fragment key={post.id}>
@@ -152,10 +152,10 @@ const SidebarItem = ({
     </div>
 
     <div className="flex flex-col flex-1 py-1">
-      <span className="w-fit text-[10px] text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase font-bold tracking-wider">
+      <span className="w-fit text-[10px] text-[#F17829] bg-blue-50 px-3 py-1 rounded-full uppercase font-bold tracking-wider">
         {category}
       </span>
-      <h3 className="mt-3 text-lg font-bold leading-snug text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+      <h3 className="mt-3 text-lg font-bold leading-snug text-gray-900 group-hover:text-[#F17829] transition-colors line-clamp-2">
         {title}
       </h3>
 
@@ -167,7 +167,7 @@ const SidebarItem = ({
             by <strong className="text-gray-900">{author}</strong>
           </span>
         </div>
-        <div className="flex items-center gap-1.5 group-hover:text-blue-500 transition-colors">
+        <div className="flex items-center gap-1.5 group-hover:text-[#F17829] transition-colors">
           <MessageSquare size={14} />
           <span className="font-medium">{comments}</span>
         </div>

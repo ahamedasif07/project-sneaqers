@@ -5,6 +5,7 @@ import Hero from "@/components/section/home/hero";
 import ProductSection from "@/components/section/home/productSection";
 
 import Releasekalender from "@/components/section/home/releasekalender";
+import Upcoming from "@/components/section/home/upcoming";
 import React from "react";
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
       <BestSell />
       <ProductSection />
       <BlogGrid />
+      <Upcoming />
     </div>
   );
 };
