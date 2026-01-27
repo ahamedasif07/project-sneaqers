@@ -6,6 +6,7 @@ import ProductSection from "@/components/section/home/productSection";
 
 import Releasekalender from "@/components/section/home/releasekalender";
 import Upcoming from "@/components/section/home/upcoming";
+import VideoBlogSection from "@/components/section/home/videoBlogSection";
 import React from "react";
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       <ProductSection />
       <BlogGrid />
       <Upcoming />
+      <VideoBlogSection />
     </div>
   );
 };
