@@ -64,7 +64,7 @@ const ProductSection = () => {
   ];
 
   // হ্যান্ডলার: কালার চেঞ্জ করলে ইমেজ ইনডেক্সও রিসেট করে দিবে
-  const handleColorChange = (idx) => {
+  const handleColorChange = (idx: number) => {
     setSelectedColorIdx(idx);
     setSelectedImageIdx(0); // এখানে সেট করায় আর Cascading Render এরর আসবে না
   };
