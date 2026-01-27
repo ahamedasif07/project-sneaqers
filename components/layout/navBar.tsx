@@ -227,11 +227,7 @@ export default function NavBar() {
                   key={link.name}
                   href={link.href}
                   onMouseEnter={() => setActiveMenu(link.name as MenuKey)}
-                  className={`text-[15px] font-medium transition-colors ${
-                    link.name === "Releases"
-                      ? "text-[#f58220]"
-                      : "text-gray-400 hover:text-black"
-                  }`}
+                  className={`text-[15px] font-medium transition-colors hover:text-orange-400 duration-200 ease-in-out`}
                 >
                   {link.name}
                 </a>
@@ -383,7 +379,7 @@ export default function NavBar() {
               <div className="col-span-8 grid grid-cols-3 gap-6">
                 {MENU_CONTENT[activeMenu].sections.map((section, idx) => (
                   <div key={idx}>
-                    <h4 className="text-gray-300 text-[11px] font-bold uppercase tracking-widest mb-6">
+                    <h4 className="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">
                       {section.title}
                     </h4>
                     <ul className="space-y-3">
@@ -391,7 +387,7 @@ export default function NavBar() {
                         <li key={link}>
                           <a
                             href="#"
-                            className="text-sm font-bold text-gray-800 hover:text-[#f58220] transition-colors"
+                            className="text-md font-semibold text-gray-700 hover:text-[#f58220] transition-colors"
                           >
                             {link}
                           </a>
