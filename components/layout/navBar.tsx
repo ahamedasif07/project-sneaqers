@@ -184,7 +184,7 @@ const SEARCH_DEMO_PRODUCTS = [
 
 export default function NavBar() {
   const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(true); // Default open for demonstration based on screenshot
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // Default open for demonstration based on screenshot
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -333,10 +333,14 @@ export default function NavBar() {
                     {product.name}
                   </h3>
                   <div className="relative aspect-[16/10] bg-[#F5F5F5] rounded-[20px] overflow-hidden mb-4 flex items-center justify-center">
-                    <img
+                    <Image
                       src={product.img}
                       alt={product.name}
-                      className="w-4/5 object-contain"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      className="object-cover 
+                       transition-transform duration-500 group-hover:scale-110"
+                      priority={product.id <= 4} // প্রথম ৪টি ইমেজ দ্রুত লোড হওয়ার জন্য
                     />
                   </div>
                   <div className="flex items-baseline space-x-2 mb-2">
