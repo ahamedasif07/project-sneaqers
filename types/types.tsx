@@ -21,3 +21,9 @@ export interface ProductState {
 export interface RootState {
   products: ProductState;
 }
+
+export interface ColorOption {
+  name: string;
+  class: string;
+  count: number;
+}

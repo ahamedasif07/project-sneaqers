@@ -211,3 +211,40 @@ export const productsData: Product[] = [
     category: "Upcoming",
   },
 ];
+
+// produts page data
+// constants/data.ts
+export const BRANDS = [
+  "Rocker",
+  "Ashley",
+  "Just",
+  "Cube",
+  "Artical Melts",
+  "Blind Store",
+];
+export const CATEGORIES = [
+  "Nike Air Max 1",
+  "Nike Air Max 90",
+  "Nike Dunk",
+  "Nike P-6000",
+  "Nike Air Force 1",
+  "Jordan Air Jordan 4",
+];
+export const COLORS = [
+  { name: "Blue", class: "bg-blue-600" },
+  { name: "Green", class: "bg-green-500" },
+  { name: "Red", class: "bg-red-500" },
+  { name: "Black", class: "bg-black" },
+  { name: "Orange", class: "bg-orange-500" },
+  { name: "Yellow", class: "bg-yellow-400" },
+];
+
+export const PRODUCTS = Array(12).fill({
+  title: "Nike Zoom Vomero 5",
+  price: 25.99,
+  oldPrice: 50.0,
+  rating: 5.0,
+  sold: 300,
+  image:
+    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop",
+});
