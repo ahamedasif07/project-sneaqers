@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "../components/layout/navBar";
 import TopNav from "../components/layout/topNav";
 import { FooterSection } from "@/components/layout/footer";
+import ReduxProvider from "./providers/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TopNav />
-        <NavBar />
-        {children}
-        <FooterSection />
+        <ReduxProvider>
+          <TopNav />
+          <NavBar />
+          {children}
+          <FooterSection />
+        </ReduxProvider>
       </body>
     </html>
   );

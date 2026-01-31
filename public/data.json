@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "Nike Zoom Vomero 5",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/shoeImage.jpg",
+    "tag": "Wishlist",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Releasekalender"
+  },
+  {
+    "id": 2,
+    "title": "Nike Air Max 1 'Grey & Black'",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/shoeImage2.jpg",
+    "tag": "Best Seller",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Releasekalender"
+  },
+  {
+    "id": 3,
+    "title": "Nike Air Force",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/shoeImage3.jpg",
+    "tag": "New",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Releasekalender"
+  },
+  {
+    "id": 4,
+    "title": "Nike Zoom Vomero 5",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/shoeImage4.jpg",
+    "tag": "Best Seller",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Releasekalender"
+  },
+  {
+    "id": 5,
+    "title": "Nike Zoom Vomero 5",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/bestSellShoe (1).jpg",
+    "tag": "Wishlist",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Best Seller"
+  },
+  {
+    "id": 6,
+    "title": "Nike Air Max 1 'Grey & Black'",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/bestSellShoe (2).jpg",
+    "tag": "Best Seller",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Best Seller"
+  },
+  {
+    "id": 7,
+    "title": "Nike Air Force",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/bestSellShoe (3).jpg",
+    "tag": "New",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Best Seller"
+  },
+  {
+    "id": 8,
+    "title": "Nike Zoom Vomero 5",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/bestSellShoe (4).jpg",
+    "tag": "Best Seller",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Best Seller"
+  },
+  {
+    "id": 9,
+    "title": "Nike Zoom Vomero 5",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/upcomingShoe (1).jpg",
+    "tag": "Wishlist",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Upcoming"
+  },
+  {
+    "id": 10,
+    "title": "Nike Air Max 1 'Grey & Black'",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/upcomingShoe (2).jpg",
+    "tag": "Best Seller",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Upcoming"
+  },
+  {
+    "id": 11,
+    "title": "Nike Air Force",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/upcomingShoe (3).jpg",
+    "tag": "New",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Upcoming"
+  },
+  {
+    "id": 12,
+    "title": "Nike Zoom Vomero 5",
+    "price": "$25.99",
+    "originalPrice": "$00.00",
+    "image": "/assets/images/upcomingShoe (4).jpg",
+    "tag": "Best Seller",
+    "rating": "5.0/5.0",
+    "soldCount": "300",
+    "category": "Upcoming"
+  }
+]
