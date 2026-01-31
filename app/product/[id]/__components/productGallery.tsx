@@ -10,24 +10,48 @@ interface GalleryProps {
 
 export default function ProductGallery({ images, title }: GalleryProps) {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const [zoomStyle, setZoomStyle] = useState({ transformOrigin: "center" });
+
+  // মাউস নড়াচড়ার সাথে জুম পজিশন ক্যালকুলেট করার ফাংশন
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+    setZoomStyle({ transformOrigin: `${x}% ${y}%` });
+  };
+
+  // মাউস সরিয়ে নিলে ইমেজ সেন্টারে চলে আসবে
+  const handleMouseLeave = () => {
+    setZoomStyle({ transformOrigin: "center" });
+  };
 
   return (
     <div className="lg:col-span-6 space-y-6">
-      <div className="relative aspect-square bg-[#e8dcc4] rounded-3xl overflow-hidden flex items-center justify-center p-8">
+      {/* মেইন ইমেজ উইথ জুম এবং প্যান ইফেক্ট */}
+      <div
+        className="relative aspect-square bg-[#e8dcc4] rounded-3xl overflow-hidden group cursor-zoom-in"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
         <Image
           src={images[selectedImageIdx]}
           alt={title}
           fill
-          className="object-cover transition-all duration-500"
+          style={zoomStyle} // ডায়নামিক পজিশন এখানে সেট হবে
+          className="object-cover transition-transform duration-200 ease-out group-hover:scale-[2.5]"
           priority
         />
+
+        {/* জুম করার সময় হালকা ওভারলে */}
+        <div className="absolute inset-0 pointer-events-none group-hover:bg-black/5 transition-colors" />
       </div>
 
       {/* থাম্বনেইল গ্যালারি */}
       <div className="space-y-4 w-full">
-        <h3 className="font-bold text-white text-lg">More Views</h3>
-
-        {/* grid-cols-4 ব্যবহার করা হয়েছে যাতে ৪টি ইমেজ পুরো লাইন জুড়ে থাকে */}
+        <h3 className="font-bold text-white text-lg tracking-wide">
+          More Views
+        </h3>
         <div className="grid grid-cols-4 gap-4 w-full">
           {images.map((img, idx) => (
             <button
@@ -35,15 +59,15 @@ export default function ProductGallery({ images, title }: GalleryProps) {
               onClick={() => setSelectedImageIdx(idx)}
               className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 ${
                 selectedImageIdx === idx
-                  ? "border-orange-500 scale-105 ring-2 ring-orange-500/20"
+                  ? "border-orange-500 scale-105 ring-4 ring-orange-500/10"
                   : "border-gray-800 hover:border-gray-500"
-              } bg-[#e8dcc4] w-full`} // w-full নিশ্চিত করে বাটনটি কলামের পুরো জায়গা নিবে
+              } bg-[#e8dcc4] w-full`}
             >
               <Image
                 src={img}
                 alt={`${title}-${idx}`}
                 fill
-                sizes="(max-width: 768px) 25vw, 15vw" // ইমেজ লোডিং অপ্টিমাইজেশন
+                sizes="(max-width: 768px) 25vw, 15vw"
                 className="object-cover"
               />
             </button>
@@ -51,41 +75,21 @@ export default function ProductGallery({ images, title }: GalleryProps) {
         </div>
       </div>
 
-      {/* সোশ্যাল শেয়ার এবং ডিটেইলস (ডার্ক থিম অনুযায়ী) */}
-      <div className="pt-6 border-t border-gray-800">
-        <div className="flex gap-4 mb-6 items-center">
-          <div className="flex gap-3">
-            {[Facebook, Twitter, Instagram].map((Icon, i) => (
-              <button
-                key={i}
-                className="p-2  rounded-md border border-gray-800 font-semibold text-gray-800 hover:text-orange-500 hover:border-orange-500 transition-colors"
-              >
-                <Icon size={18} />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* প্রোডাক্ট ইনফরমেশন কার্ড */}
-        {/* <div className="space-y-2 text-sm border border-gray-800 rounded-2xl p-6 bg-[#1e1e1e]">
-          <h4 className="font-bold text-white mb-4 text-base">
-            Product Details
-          </h4>
-          {[
-            { label: "Stylecode", value: "1201B020-100" },
-            { label: "Brand", value: "ASICS" },
-            { label: "Model", value: "ASICS GEL-1130" },
-            { label: "Colorway", value: "White/Pure Silver/Black" },
-          ].map((item, i) => (
-            <div
+      {/* সোশ্যাল শেয়ার */}
+      <div className="pt-6 border-t border-gray-800 flex items-center justify-between">
+        <div className="flex gap-3">
+          {[Facebook, Twitter, Instagram].map((Icon, i) => (
+            <button
               key={i}
-              className="flex justify-between py-2 border-b last:border-0 border-gray-800"
+              className="p-3 rounded-xl border border-gray-800 text-gray-400 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-500/5 transition-all duration-300 bg-[#1e1e1e]"
             >
-              <span className="text-gray-400">{item.label}</span>
-              <span className="font-medium text-gray-200">{item.value}</span>
-            </div>
+              <Icon size={20} />
+            </button>
           ))}
-        </div> */}
+        </div>
+        <span className="text-xs text-gray-500 font-medium italic">
+          Hover to explore details
+        </span>
       </div>
     </div>
   );
