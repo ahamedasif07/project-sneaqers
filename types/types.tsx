@@ -27,3 +27,11 @@ export interface ColorOption {
   class: string;
   count: number;
 }
+
+export interface FilterState {
+  brands: string[];
+  categories: string[];
+  priceRange: number;
+  audience: string[];
+  colors: string[];
+}

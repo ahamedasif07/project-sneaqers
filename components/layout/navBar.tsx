@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import logo from "@/public/assets/images/logo.png";
 import Container from "../ui/container";
+import Link from "next/link";
 
 // --- DATA ---
 const MENU_CONTENT = {
@@ -196,7 +197,7 @@ export default function NavBar() {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: "Sneakers", href: "#" },
+    { name: "Sneakers", href: "/products" },
     { name: "Releases", href: "#" },
     { name: "Aanbiedingen", href: "#" },
     { name: "Nieuws", href: "#" },
@@ -209,16 +210,18 @@ export default function NavBar() {
         <Container>
           <div className="flex items-center justify-between py-4 md:py-6">
             {/* Logo */}
-            <div className="flex-shrink-0">
-              <Image
-                src={logo}
-                alt="SNEAQUERS"
-                width={160}
-                height={45}
-                priority
-                className="w-[120px] md:w-[160px]"
-              />
-            </div>
+            <Link href="/">
+              <div className="flex-shrink-0">
+                <Image
+                  src={logo}
+                  alt="SNEAQUERS"
+                  width={160}
+                  height={45}
+                  priority
+                  className="w-[120px] md:w-[160px]"
+                />
+              </div>
+            </Link>
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
