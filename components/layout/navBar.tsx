@@ -1,23 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, ChangeEvent } from "react";
 import {
   Search,
   Heart,
   CircleUserRound,
-  Menu,
   X,
   ArrowRight,
   Star,
-  ChevronRight,
 } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/assets/images/logo.png";
 import Container from "../ui/container";
 import Link from "next/link";
+import { productsData, Product } from "@/data/data"; // নিশ্চিত করুন path ঠিক আছে
 
-// --- DATA ---
-const MENU_CONTENT = {
+// --- Types ---
+interface Promo {
+  title: string;
+  label: string;
+  btn: string;
+  img: string;
+}
+
+interface Section {
+  title: string;
+  links: string[];
+}
+
+interface MenuData {
+  sections: Section[];
+  promos: Promo[];
+}
+
+const MENU_CONTENT: Record<string, MenuData> = {
   Sneakers: {
     sections: [
       {
@@ -81,120 +97,24 @@ const MENU_CONTENT = {
       },
     ],
   },
-  Aanbiedingen: {
-    sections: [
-      {
-        title: "Sale %",
-        links: ["50% Off", "30% Off", "Last Sizes", "Outlet"],
-      },
-      {
-        title: "Under €100",
-        links: ["Men's Sale", "Women's Sale", "Kids' Sale"],
-      },
-      { title: "Accessories", links: ["Socks", "Cleaning Kits", "Shoelaces"] },
-    ],
-    promos: [
-      {
-        title: "Clearance",
-        label: "FINAL CHANCE",
-        btn: "Grab deal",
-        img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500",
-      },
-      {
-        title: "Member Exclusive",
-        label: "VIP ONLY",
-        btn: "Join now",
-        img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=500",
-      },
-    ],
-  },
-  Nieuws: {
-    sections: [
-      {
-        title: "Articles",
-        links: [
-          "Sneaker Care",
-          "Style Guide",
-          "History of Air",
-          "Upcoming Drops",
-        ],
-      },
-      {
-        title: "Events",
-        links: ["Sneaker Con", "In-store Raffle", "Giveaways"],
-      },
-      { title: "Socials", links: ["Instagram", "TikTok", "YouTube"] },
-    ],
-    promos: [
-      {
-        title: "The Blog",
-        label: "READ NOW",
-        btn: "Read articles",
-        img: "https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=500",
-      },
-      {
-        title: "Newsletter",
-        label: "STAY UPDATED",
-        btn: "Sign up",
-        img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=500",
-      },
-    ],
-  },
-} as const;
-
-type MenuKey = keyof typeof MENU_CONTENT;
-
-const SEARCH_DEMO_PRODUCTS = [
-  {
-    id: 1,
-    name: "Nike Zoom Vomero 5",
-    price: 25.99,
-    oldPrice: 50.0,
-    rating: "5.0/5.0",
-    sold: 300,
-    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400",
-  },
-  {
-    id: 2,
-    name: "Nike Air Max 1 'Grey & Black'",
-    price: 25.99,
-    oldPrice: 50.0,
-    rating: "5.0/5.0",
-    sold: 300,
-    img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=400",
-  },
-  {
-    id: 3,
-    name: "Nike Air Force",
-    price: 25.99,
-    oldPrice: 50.0,
-    rating: "5.0/5.0",
-    sold: 300,
-    img: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=400",
-  },
-  {
-    id: 4,
-    name: "Nike Zoom Vomero 5",
-    price: 25.99,
-    oldPrice: 50.0,
-    rating: "5.0/5.0",
-    sold: 300,
-    img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=400",
-  },
-];
+};
 
 export default function NavBar() {
-  const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // Default open for demonstration based on screenshot
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isMobileMenuOpen]);
+  // --- Filtering Logic (Matches your Product Interface) ---
+  const filteredProducts = useMemo(() => {
+    if (searchQuery.trim() === "") return [];
+    return (productsData as Product[]).filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [searchQuery]);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   const navLinks = [
     { name: "Sneakers", href: "/products" },
@@ -204,177 +124,142 @@ export default function NavBar() {
   ];
 
   return (
-    <header className="relative w-full bg-white font-sans">
-      {/* Top Navbar */}
-      <div className="relative border-b border-gray-100 z-[1000]">
+    <header className="relative w-full bg-white font-sans border-b border-gray-100">
+      <div className="relative z-[1000] bg-white">
         <Container>
           <div className="flex items-center justify-between py-4 md:py-6">
-            {/* Logo */}
             <Link href="/">
-              <div className="flex-shrink-0">
-                <Image
-                  src={logo}
-                  alt="SNEAQUERS"
-                  width={160}
-                  height={45}
-                  priority
-                  className="w-[120px] md:w-[160px]"
-                />
-              </div>
+              <Image
+                src={logo}
+                alt="SNEAQUERS"
+                width={160}
+                height={45}
+                priority
+                className="w-[120px] md:w-[160px]"
+              />
             </Link>
 
-            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
-                  onMouseEnter={() => setActiveMenu(link.name as MenuKey)}
-                  className={`text-[15px] font-medium transition-colors hover:text-orange-400 duration-200 ease-in-out`}
+                  onMouseEnter={() => setActiveMenu(link.name)}
+                  className="text-[15px] font-medium transition-colors hover:text-[#f58220]"
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </nav>
 
-            {/* Actions */}
             <div className="flex items-center space-x-2 md:space-x-4">
               <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 hover:bg-gray-100 rounded-full"
+                onClick={() => {
+                  setIsSearchOpen(!isSearchOpen);
+                  setSearchQuery("");
+                }}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
               >
-                <Search className="w-5 h-5 text-gray-700" />
-              </button>
-              <button className="hidden sm:block p-2 hover:bg-gray-100 rounded-full">
-                <Heart className="w-5 h-5 text-gray-700" />
-              </button>
-              <button className="hidden sm:block p-2 hover:bg-gray-100 rounded-full">
-                <CircleUserRound className="w-5 h-5 text-gray-700" />
-              </button>
-              {/* Mobile Menu Toggle */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden w-10 h-10 flex items-center justify-center bg-[#f58220] rounded-full text-white"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
+                {isSearchOpen ? (
+                  <X className="w-5 h-5 text-gray-700" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <Search className="w-5 h-5 text-gray-700" />
                 )}
               </button>
+
+              {/* Heart and User Icons as requested */}
+              <Link
+                href="/wishlist"
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <Heart className="w-5 h-5 text-gray-700" />
+              </Link>
+
+              <Link
+                href="/profile"
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <CircleUserRound className="w-5 h-5 text-gray-700" />
+              </Link>
             </div>
           </div>
         </Container>
       </div>
 
-      {/* --- MOBILE OVERLAY --- */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[73px] bg-white z-[999] p-6 animate-in slide-in-from-right duration-300 md:hidden">
-          <div className="flex space-x-4 mt-5">
-            <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
-              <Search className="w-5 h-5" />
-            </div>
-            <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
-              <Heart className="w-5 h-5" />
-            </div>
-            <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
-              <CircleUserRound className="w-5 h-5" />
-            </div>
-          </div>
-          <nav className="flex flex-col space-y-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="flex justify-between items-center text-xl font-medium text-gray-400 hover:text-black border-b border-gray-50 pb-4"
-              >
-                <span
-                  className={link.name === "Releases" ? "text-[#f58220]" : ""}
-                >
-                  {link.name}
-                </span>
-                <ChevronRight className="w-5 h-5" />
-              </a>
-            ))}
-          </nav>
-        </div>
-      )}
-
-      {/* --- SEARCH AREA (Desktop Screenshot_24 Style) --- */}
+      {/* --- SEARCH AREA --- */}
       {isSearchOpen && (
-        <div className="w-full bg-white pb-12 pt-6">
+        <div className="absolute top-full left-0 w-full bg-white pb-12 pt-6 border-b border-gray-100 shadow-xl z-[950] animate-in fade-in slide-in-from-top-2 duration-300">
           <Container>
-            {/* Search Input Box */}
-            <div className="relative max-w-7xl mx-auto mb-10">
-              <div className="flex items-center border border-gray-200 rounded-full px-6 py-2 shadow-sm">
+            <div className="relative max-w-3xl mx-auto mb-10">
+              <div className="flex items-center border border-gray-200 rounded-full px-6 py-2 focus-within:border-[#f58220] transition-all">
                 <input
                   type="text"
-                  placeholder="Zoek op merk, model of stijlcode"
-                  className="w-full py-2 outline-none text-gray-600 text-sm md:text-base"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                  placeholder="Zoek op merk, model..."
+                  className="w-full py-2 outline-none text-gray-600"
+                  autoFocus
                 />
-                <button className="flex items-center space-x-2 bg-[#1a1a1a] text-white px-5 py-2.5 rounded-full hover:bg-black transition-all ml-2">
-                  <div className="bg-[#f58220] p-1 rounded-full">
-                    <ArrowRight className="w-3 h-3 text-white" />
-                  </div>
+                <button className="flex items-center space-x-2 bg-black text-white px-5 py-2.5 rounded-full ml-2">
+                  <ArrowRight className="w-4 h-4" />
                   <span className="text-sm font-bold">Zoeken</span>
                 </button>
               </div>
             </div>
 
-            {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {SEARCH_DEMO_PRODUCTS.map((product) => (
-                <div
-                  key={product.id}
-                  className="border border-gray-100 rounded-[30px] p-5 hover:shadow-md transition-shadow"
-                >
-                  <h3 className="font-semibold text-gray-800 mb-4 text-[15px]">
-                    {product.name}
-                  </h3>
-                  <div className="relative aspect-[16/10] bg-[#F5F5F5] rounded-[20px] overflow-hidden mb-4 flex items-center justify-center">
-                    <Image
-                      src={product.img}
-                      alt={product.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                      className="object-cover 
-                       transition-transform duration-500 group-hover:scale-110"
-                      priority={product.id <= 4} // প্রথম ৪টি ইমেজ দ্রুত লোড হওয়ার জন্য
-                    />
+            {searchQuery.trim() !== "" && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="border border-gray-100 rounded-[24px] p-4 hover:shadow-lg transition-all group"
+                    >
+                      <div className="relative aspect-square bg-[#F5F5F5] rounded-[18px] overflow-hidden mb-4">
+                        <Image
+                          src={product.images[0]} // Using images array from your data
+                          alt={product.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 25vw"
+                          className="object-cover transition-transform group-hover:scale-110"
+                        />
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-1 text-sm line-clamp-1">
+                        {product.title}
+                      </h3>
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="text-lg font-black text-[#f58220]">
+                          {product.price}
+                        </span>
+                        {product.originalPrice !== "$00.00" && (
+                          <span className="text-gray-400 text-xs line-through">
+                            {product.originalPrice}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center text-[11px] text-gray-500">
+                        <Star className="w-3 h-3 text-[#f58220] fill-[#f58220] mr-1" />
+                        <span>{product.rating}</span>
+                        <span className="mx-2 text-gray-200">|</span>
+                        <span>{product.soldCount} sold</span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-full py-12 text-center text-gray-400">
+                    Geen producten gevonden.
                   </div>
-                  <div className="flex items-baseline space-x-2 mb-2">
-                    <span className="text-xl font-bold">${product.price}</span>
-                    <span className="text-gray-400 text-sm line-through">
-                      ${product.oldPrice.toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="flex items-center text-xs text-gray-500 font-medium">
-                    <Star className="w-3 h-3 text-[#f58220] fill-[#f58220] mr-1" />
-                    <span>{product.rating}</span>
-                    <span className="mx-2 text-gray-300">|</span>
-                    <span>{product.sold} sold</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* View All Button */}
-            <div className="mt-10 flex justify-center">
-              <button className="flex items-center space-x-2 border border-gray-300 px-6 py-2.5 rounded-full hover:bg-gray-50 transition-all text-[12px] font-bold tracking-tight uppercase">
-                <div className="bg-[#f58220] p-1 rounded-full">
-                  <ArrowRight className="w-3 h-3 text-white" />
-                </div>
-                <span>VIEW ALL</span>
-              </button>
-            </div>
+                )}
+              </div>
+            )}
           </Container>
         </div>
       )}
 
-      {/* --- MEGA MENU (Hover) --- */}
-      {!isSearchOpen && activeMenu && (
+      {/* --- MEGA MENU --- */}
+      {!isSearchOpen && activeMenu && MENU_CONTENT[activeMenu] && (
         <div
-          className="absolute left-0 w-full bg-white border-t border-gray-100 shadow-xl z-[900] hidden md:block"
+          className="absolute left-0 w-full bg-white border-t shadow-2xl z-[900] hidden md:block"
           onMouseLeave={() => setActiveMenu(null)}
         >
           <Container>
@@ -382,18 +267,18 @@ export default function NavBar() {
               <div className="col-span-8 grid grid-cols-3 gap-6">
                 {MENU_CONTENT[activeMenu].sections.map((section, idx) => (
                   <div key={idx}>
-                    <h4 className="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">
+                    <h4 className="text-gray-400 text-[11px] font-bold uppercase tracking-widest mb-6">
                       {section.title}
                     </h4>
                     <ul className="space-y-3">
                       {section.links.map((link) => (
                         <li key={link}>
-                          <a
+                          <Link
                             href="#"
-                            className="text-md font-semibold text-gray-700 hover:text-[#f58220] transition-colors"
+                            className="text-sm font-semibold text-gray-700 hover:text-[#f58220]"
                           >
                             {link}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -406,18 +291,20 @@ export default function NavBar() {
                     key={idx}
                     className="relative w-1/2 aspect-[3/4] rounded-2xl overflow-hidden group"
                   >
-                    <img
+                    <Image
                       src={promo.img}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      alt={promo.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-black/20 flex flex-col justify-end p-4 text-white">
-                      <p className="text-[9px] font-bold tracking-tighter uppercase mb-1">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent flex flex-col justify-end p-5 text-white">
+                      <p className="text-[10px] font-bold text-[#f58220] uppercase mb-1">
                         {promo.label}
                       </p>
-                      <h5 className="font-bold text-lg leading-tight mb-3">
+                      <h5 className="font-bold text-base mb-4">
                         {promo.title}
                       </h5>
-                      <button className="bg-white text-black text-[10px] font-bold py-2 rounded-full hover:bg-[#f58220] hover:text-white transition-colors">
+                      <button className="bg-white text-black text-[10px] font-extrabold py-2 px-4 rounded-full">
                         {promo.btn}
                       </button>
                     </div>
